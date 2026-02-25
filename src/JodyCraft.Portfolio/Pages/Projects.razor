@@ -1,0 +1,121 @@
+@page "/projects"
+@using JodyCraft.Portfolio.Models
+
+<PageTitle>Projects | JodyCraft</PageTitle>
+
+<section class="page-header">
+    <div class="container">
+        <h1>Projects</h1>
+        <p class="lead">実績とデモアプリケーション</p>
+    </div>
+</section>
+
+<!-- デモアプリ -->
+<section class="projects-section">
+    <div class="container">
+        <h2 class="section-title">デモアプリケーション</h2>
+        <div class="row g-4">
+            <div class="col-md-6">
+                <div class="project-card highlighted">
+                    <div class="project-card-header">
+                        <span class="project-icon">📊</span>
+                        <span class="badge bg-accent">DEMO</span>
+                    </div>
+                    <h3>CSVデータビューア</h3>
+                    <p>
+                        製造業で頻繁に扱う計測データを、ブラウザ上でインタラクティブに可視化。
+                        ファイルをドラッグ&ドロップするだけで、テーブル表示・統計グラフを自動生成します。
+                    </p>
+                    <div class="project-tech">
+                        <span class="tech-tag">Blazor WASM</span>
+                        <span class="tech-tag">C#</span>
+                        <span class="tech-tag">Chart.js</span>
+                        <span class="tech-tag">JS Interop</span>
+                    </div>
+                    <div class="project-links mt-3">
+                        <a href="csvviewer" class="btn btn-accent btn-sm">デモを試す →</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="project-card highlighted">
+                    <div class="project-card-header">
+                        <span class="project-icon">🌐</span>
+                        <span class="badge bg-accent">THIS SITE</span>
+                    </div>
+                    <h3>JodyCraft ポートフォリオ</h3>
+                    <p>
+                        このサイト自体が Blazor WebAssembly で構築されています。
+                        C# だけで Web アプリケーションが作れることの実証です。
+                        GitHub Actions による CI/CD で自動デプロイされています。
+                    </p>
+                    <div class="project-tech">
+                        <span class="tech-tag">Blazor WASM</span>
+                        <span class="tech-tag">C#</span>
+                        <span class="tech-tag">GitHub Pages</span>
+                        <span class="tech-tag">GitHub Actions</span>
+                    </div>
+                    <div class="project-links mt-3">
+                        <a href="https://github.com/jodycraft/jodycraft-portfolio" target="_blank" class="btn btn-outline-light btn-sm">GitHub →</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 実務プロジェクト（守秘義務対応） -->
+<section class="work-projects-section">
+    <div class="container">
+        <h2 class="section-title">実務プロジェクト（概要）</h2>
+        <p class="text-muted mb-4">※ 守秘義務により具体的な企業名・製品名は非公開です。技術的な概要を記載しています。</p>
+
+        <div class="row g-4">
+            @foreach (var project in workProjects)
+            {
+                <div class="col-md-6">
+                    <div class="work-project-card">
+                        <h4>@project.Title</h4>
+                        <p>@project.Description</p>
+                        <div class="project-tech">
+                            @foreach (var tech in project.Technologies)
+                            {
+                                <span class="tech-tag">@tech</span>
+                            }
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>
+
+@code {
+    private List<ProjectInfo> workProjects = new()
+    {
+        new()
+        {
+            Title = "📡 計測器データ収集システム",
+            Description = "複数の計測器からHTTP API（VISA規格）でデータを収集し、統一的なインターフェースで管理するシステム。計測器の種類に依存しない共通通信レイヤーを設計。",
+            Technologies = ["C#", "WinForms", "HTTP", "VISA", "シリアル通信"]
+        },
+        new()
+        {
+            Title = "📋 試験成績書自動作成ツール",
+            Description = "試験結果データから成績書を自動生成し、人手による転記作業を大幅に削減。Excel テンプレートへの自動書き込み機能を実装。",
+            Technologies = ["C#", "WinForms", "Excel操作", "テンプレートエンジン"]
+        },
+        new()
+        {
+            Title = "📈 試験データ統計分析システム",
+            Description = "試験結果の傾向分析・統計処理（平均・標準偏差・Cpk等）を行い、品質判定を支援するダッシュボード。リアルタイムでのグラフ描画機能付き。",
+            Technologies = ["C#", "WinForms", "統計処理", "グラフ描画"]
+        },
+        new()
+        {
+            Title = "📷 カメラ制御アプリ",
+            Description = "産業用カメラSDKと連携し、撮影制御・画像取得・保存を行う検査支援ツール。外観検査工程の効率化に貢献。",
+            Technologies = ["C#", "WinForms", "カメラSDK", "画像処理"]
+        }
+    };
+}

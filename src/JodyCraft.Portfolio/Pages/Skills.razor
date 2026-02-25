@@ -1,0 +1,86 @@
+@page "/skills"
+@using JodyCraft.Portfolio.Models
+
+<PageTitle>Skills | JodyCraft</PageTitle>
+
+<section class="page-header">
+    <div class="container">
+        <h1>Skills</h1>
+        <p class="lead">技術スタックと経験</p>
+    </div>
+</section>
+
+<section class="skills-section">
+    <div class="container">
+        @foreach (var category in skillCategories)
+        {
+            <div class="skill-category mb-5">
+                <h3 class="category-title">@category.Key</h3>
+                <div class="row g-3">
+                    @foreach (var skill in category.Value)
+                    {
+                        <div class="col-md-6 col-lg-4">
+                            <div class="skill-card">
+                                <div class="skill-header">
+                                    <span class="skill-icon">@skill.Icon</span>
+                                    <h5 class="skill-name">@skill.Name</h5>
+                                </div>
+                                <div class="skill-bar-container">
+                                    <div class="skill-bar" style="width: @(skill.Proficiency * 20)%"></div>
+                                </div>
+                                <p class="skill-description">@skill.Description</p>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        }
+    </div>
+</section>
+
+<section class="learning-section">
+    <div class="container">
+        <h2 class="section-title">現在学習中</h2>
+        <div class="row g-3 justify-content-center">
+            <div class="col-auto">
+                <span class="learning-badge">WPF / MVVM</span>
+            </div>
+            <div class="col-auto">
+                <span class="learning-badge">Blazor WebAssembly</span>
+            </div>
+            <div class="col-auto">
+                <span class="learning-badge">Azure クラウド</span>
+            </div>
+            <div class="col-auto">
+                <span class="learning-badge">.NET 10</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+@code {
+    private Dictionary<string, List<SkillItem>> skillCategories = new()
+    {
+        ["言語・フレームワーク"] = new()
+        {
+            new() { Name = "C#", Icon = "⌨️", Proficiency = 5, Description = "5年の実務経験。業務アプリ開発のメイン言語" },
+            new() { Name = ".NET / .NET Framework", Icon = "🔷", Proficiency = 4, Description = ".NET 8/9 を使用した最新開発" },
+            new() { Name = "WinForms", Icon = "🖥️", Proficiency = 5, Description = "業務アプリUI開発の中核技術" },
+            new() { Name = "Blazor WASM", Icon = "🌐", Proficiency = 2, Description = "Webアプリ開発に挑戦中" },
+        },
+        ["計測・制御・自動化"] = new()
+        {
+            new() { Name = "VISA規格 / 計測器通信", Icon = "📡", Proficiency = 4, Description = "HTTP/シリアルによる計測器制御" },
+            new() { Name = "カメラ制御 (SDK連携)", Icon = "📷", Proficiency = 3, Description = "産業用カメラの制御・画像取得" },
+            new() { Name = "Excel/CSV自動処理", Icon = "📊", Proficiency = 4, Description = "成績書自動生成、データ変換" },
+            new() { Name = "統計分析・可視化", Icon = "📈", Proficiency = 4, Description = "計測データの傾向分析・グラフ化" },
+        },
+        ["開発ツール・プラクティス"] = new()
+        {
+            new() { Name = "GitHub Copilot", Icon = "🤖", Proficiency = 3, Description = "AI駆動開発を実践中" },
+            new() { Name = "Git / GitHub", Icon = "🔀", Proficiency = 3, Description = "バージョン管理・CI/CD" },
+            new() { Name = "Visual Studio", Icon = "💜", Proficiency = 4, Description = "メインIDE（2022）" },
+            new() { Name = "VS Code", Icon = "💙", Proficiency = 3, Description = "軽量エディタ + 拡張機能" },
+        }
+    };
+}

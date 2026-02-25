@@ -1,0 +1,243 @@
+@page "/csvviewer"
+@inject IJSRuntime JS
+
+<PageTitle>CSVデータビューア | JodyCraft</PageTitle>
+
+<section class="page-header">
+    <div class="container">
+        <h1>📊 CSVデータビューア</h1>
+        <p class="lead">製造業の計測データをブラウザで可視化</p>
+    </div>
+</section>
+
+<section class="csv-viewer-section">
+    <div class="container">
+        <!-- ファイル入力エリア -->
+        <div class="upload-area mb-4" @ondragover:preventDefault @ondrop:preventDefault>
+            <InputFile OnChange="HandleFileUpload" accept=".csv" class="form-control" />
+            <p class="text-muted mt-2">CSVファイルを選択、またはドラッグ&ドロップしてください</p>
+            <button class="btn btn-outline-light btn-sm mt-2" @onclick="LoadSampleData">サンプルデータで試す</button>
+        </div>
+
+        @if (isLoading)
+        {
+            <div class="text-center py-4">
+                <div class="spinner-border text-accent" role="status">
+                    <span class="visually-hidden">読み込み中...</span>
+                </div>
+            </div>
+        }
+
+        @if (rows.Count > 0)
+        {
+            <!-- 統計情報 -->
+            <div class="stats-panel mb-4">
+                <h3>基本統計量</h3>
+                <div class="mb-3">
+                    <label class="form-label">分析対象カラムを選択:</label>
+                    <select class="form-select" style="max-width: 300px;" @onchange="OnColumnChanged">
+                        <option value="">-- 選択してください --</option>
+                        @for (int i = 0; i < headers.Count; i++)
+                        {
+                            <option value="@i">@headers[i]</option>
+                        }
+                    </select>
+                </div>
+
+                @if (statistics != null)
+                {
+                    <div class="row g-3">
+                        <div class="col-6 col-md-3">
+                            <div class="stat-card">
+                                <div class="stat-label">データ数</div>
+                                <div class="stat-value">@statistics.Count</div>
+                            </div>
+                        </div>
+                        <div class="col-6 col-md-3">
+                            <div class="stat-card">
+                                <div class="stat-label">平均</div>
+                                <div class="stat-value">@statistics.Mean.ToString("F3")</div>
+                            </div>
+                        </div>
+                        <div class="col-6 col-md-3">
+                            <div class="stat-card">
+                                <div class="stat-label">標準偏差</div>
+                                <div class="stat-value">@statistics.StdDev.ToString("F3")</div>
+                            </div>
+                        </div>
+                        <div class="col-6 col-md-3">
+                            <div class="stat-card">
+                                <div class="stat-label">最小 / 最大</div>
+                                <div class="stat-value">@statistics.Min.ToString("F2") / @statistics.Max.ToString("F2")</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- グラフエリア -->
+                    <div class="chart-area mt-4">
+                        <canvas id="dataChart" width="400" height="200"></canvas>
+                    </div>
+                }
+            </div>
+
+            <!-- データテーブル -->
+            <div class="table-section">
+                <h3>データテーブル <span class="text-muted small">(@rows.Count 行)</span></h3>
+                <div class="table-responsive">
+                    <table class="table table-dark table-striped table-hover">
+                        <thead>
+                            <tr>
+                                @foreach (var header in headers)
+                                {
+                                    <th>@header</th>
+                                }
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var row in rows.Take(100))
+                            {
+                                <tr>
+                                    @foreach (var cell in row)
+                                    {
+                                        <td>@cell</td>
+                                    }
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                    @if (rows.Count > 100)
+                    {
+                        <p class="text-muted text-center">先頭100行を表示しています（全@rows.Count 行）</p>
+                    }
+                </div>
+            </div>
+        }
+    </div>
+</section>
+
+@code {
+    private List<string> headers = new();
+    private List<string[]> rows = new();
+    private bool isLoading = false;
+    private StatisticsResult? statistics;
+
+    private class StatisticsResult
+    {
+        public int Count { get; set; }
+        public double Mean { get; set; }
+        public double StdDev { get; set; }
+        public double Min { get; set; }
+        public double Max { get; set; }
+    }
+
+    private async Task HandleFileUpload(InputFileChangeEventArgs e)
+    {
+        isLoading = true;
+        StateHasChanged();
+
+        try
+        {
+            var file = e.File;
+            using var stream = file.OpenReadStream(maxAllowedSize: 10 * 1024 * 1024); // 10MB
+            using var reader = new StreamReader(stream);
+            var content = await reader.ReadToEndAsync();
+            ParseCsv(content);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error: {ex.Message}");
+        }
+        finally
+        {
+            isLoading = false;
+            StateHasChanged();
+        }
+    }
+
+    private void LoadSampleData()
+    {
+        var sampleCsv = @"Timestamp,Temperature_C,Pressure_kPa,Voltage_V,Current_mA
+2026-01-01 08:00,23.5,101.3,5.02,12.3
+2026-01-01 08:10,23.8,101.2,5.01,12.5
+2026-01-01 08:20,24.1,101.1,4.99,12.4
+2026-01-01 08:30,24.3,101.0,5.03,12.6
+2026-01-01 08:40,24.0,101.2,5.00,12.3
+2026-01-01 08:50,23.9,101.3,5.02,12.5
+2026-01-01 09:00,24.5,100.9,4.98,12.7
+2026-01-01 09:10,24.8,100.8,5.01,12.8
+2026-01-01 09:20,25.0,100.7,5.04,12.9
+2026-01-01 09:30,24.7,100.9,5.00,12.6
+2026-01-01 09:40,24.3,101.0,5.02,12.5
+2026-01-01 09:50,24.1,101.1,4.99,12.4
+2026-01-01 10:00,23.8,101.3,5.01,12.3
+2026-01-01 10:10,24.2,101.1,5.03,12.6
+2026-01-01 10:20,24.6,100.9,4.97,12.8
+2026-01-01 10:30,25.1,100.7,5.05,13.0
+2026-01-01 10:40,25.3,100.6,5.02,13.1
+2026-01-01 10:50,24.9,100.8,5.00,12.7
+2026-01-01 11:00,24.5,101.0,5.01,12.5
+2026-01-01 11:10,24.0,101.2,4.99,12.4";
+
+        ParseCsv(sampleCsv);
+        StateHasChanged();
+    }
+
+    private void ParseCsv(string content)
+    {
+        headers.Clear();
+        rows.Clear();
+        statistics = null;
+
+        var lines = content.Split('\n', StringSplitOptions.RemoveEmptyEntries);
+        if (lines.Length == 0) return;
+
+        headers = lines[0].Split(',').Select(h => h.Trim()).ToList();
+
+        for (int i = 1; i < lines.Length; i++)
+        {
+            var cells = lines[i].Split(',').Select(c => c.Trim()).ToArray();
+            if (cells.Length == headers.Count)
+            {
+                rows.Add(cells);
+            }
+        }
+    }
+
+    private async Task OnColumnChanged(ChangeEventArgs e)
+    {
+        if (string.IsNullOrEmpty(e.Value?.ToString())) return;
+
+        var colIndex = int.Parse(e.Value.ToString()!);
+        var values = new List<double>();
+
+        foreach (var row in rows)
+        {
+            if (double.TryParse(row[colIndex], out var val))
+            {
+                values.Add(val);
+            }
+        }
+
+        if (values.Count == 0)
+        {
+            statistics = null;
+            return;
+        }
+
+        var mean = values.Average();
+        var variance = values.Sum(v => Math.Pow(v - mean, 2)) / values.Count;
+
+        statistics = new StatisticsResult
+        {
+            Count = values.Count,
+            Mean = mean,
+            StdDev = Math.Sqrt(variance),
+            Min = values.Min(),
+            Max = values.Max()
+        };
+
+        // Chart.jsでグラフ描画
+        var labels = Enumerable.Range(1, values.Count).Select(i => i.ToString()).ToArray();
+        await JS.InvokeVoidAsync("chartInterop.renderChart", "dataChart", headers[colIndex], labels, values.ToArray());
+    }
+}
