@@ -18,13 +18,13 @@
             <div class="col-md-6">
                 <div class="project-card highlighted">
                     <div class="project-card-header">
-                        <span class="project-icon">📊</span>
+                        <span class="project-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="28" height="28"><path d="M3 3v18h18" stroke-linecap="round" stroke-linejoin="round"/><path d="M7 16l4-6 4 4 5-8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
                         <span class="badge bg-accent">DEMO</span>
                     </div>
                     <h3>CSVデータビューア</h3>
                     <p>
-                        製造業で頻繁に扱う計測データを、ブラウザ上でインタラクティブに可視化。
-                        ファイルをドラッグ&ドロップするだけで、テーブル表示・統計グラフを自動生成します。
+                        製造業でよく扱う計測データを、ブラウザ上でサクッと見れるツール。
+                        ファイルをドラッグ&ドロップするだけで、テーブル表示・統計グラフまで自動で出ます。
                     </p>
                     <div class="project-tech">
                         <span class="tech-tag">Blazor WASM</span>
@@ -40,14 +40,14 @@
             <div class="col-md-6">
                 <div class="project-card highlighted">
                     <div class="project-card-header">
-                        <span class="project-icon">🌐</span>
+                        <span class="project-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="28" height="28"><path d="M12 2L2 7l10 5 10-5-10-5Z" stroke-linecap="round" stroke-linejoin="round"/><path d="M2 17l10 5 10-5M2 12l10 5 10-5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
                         <span class="badge bg-accent">THIS SITE</span>
                     </div>
                     <h3>JodyCraft ポートフォリオ</h3>
                     <p>
-                        このサイト自体が Blazor WebAssembly で構築されています。
-                        C# だけで Web アプリケーションが作れることの実証です。
-                        GitHub Actions による CI/CD で自動デプロイされています。
+                        このサイト自体が Blazor WebAssembly 製です。
+                        C# だけで Web アプリが作れることの実例として、
+                        GitHub Actions で自動デプロイしています。
                     </p>
                     <div class="project-tech">
                         <span class="tech-tag">Blazor WASM</span>
@@ -56,7 +56,7 @@
                         <span class="tech-tag">GitHub Actions</span>
                     </div>
                     <div class="project-links mt-3">
-                        <a href="https://github.com/jodycraft/jodycraft-portfolio" target="_blank" class="btn btn-outline-light btn-sm">GitHub →</a>
+                        <a href="https://github.com/joji804/jodycraft-portfolio" target="_blank" class="btn btn-outline-light btn-sm">GitHub →</a>
                     </div>
                 </div>
             </div>
@@ -95,26 +95,26 @@
     {
         new()
         {
-            Title = "📡 計測器データ収集システム",
-            Description = "複数の計測器からHTTP API（VISA規格）でデータを収集し、統一的なインターフェースで管理するシステム。計測器の種類に依存しない共通通信レイヤーを設計。",
+            Title = "計測器データ収集システム",
+            Description = "複数の計測器からVISA規格でデータを収集する仕組み。計測器の種類に依存しない共通の通信レイヤーを設計しました。",
             Technologies = ["C#", "WinForms", "HTTP", "VISA", "シリアル通信"]
         },
         new()
         {
-            Title = "📋 試験成績書自動作成ツール",
-            Description = "試験結果データから成績書を自動生成し、人手による転記作業を大幅に削減。Excel テンプレートへの自動書き込み機能を実装。",
+            Title = "試験成績書自動作成ツール",
+            Description = "試験結果から成績書を自動生成。手作業での転記ミスをなくし、作業時間も大幅に削減できました。",
             Technologies = ["C#", "WinForms", "Excel操作", "テンプレートエンジン"]
         },
         new()
         {
-            Title = "📈 試験データ統計分析システム",
-            Description = "試験結果の傾向分析・統計処理（平均・標準偏差・Cpk等）を行い、品質判定を支援するダッシュボード。リアルタイムでのグラフ描画機能付き。",
+            Title = "試験データ統計分析システム",
+            Description = "試験結果の傾向分析・統計処理（平均・標準偏差・Cpk等）を行うダッシュボード。品質判定をリアルタイムのグラフで支援します。",
             Technologies = ["C#", "WinForms", "統計処理", "グラフ描画"]
         },
         new()
         {
-            Title = "📷 カメラ制御アプリ",
-            Description = "産業用カメラSDKと連携し、撮影制御・画像取得・保存を行う検査支援ツール。外観検査工程の効率化に貢献。",
+            Title = "カメラ制御アプリ",
+            Description = "産業用カメラSDKと連携した検査支援ツール。撮影・画像取得・保存を一元管理し、外観検査工程を効率化しました。",
             Technologies = ["C#", "WinForms", "カメラSDK", "画像処理"]
         }
     };

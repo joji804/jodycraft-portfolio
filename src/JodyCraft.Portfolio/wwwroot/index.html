@@ -42,6 +42,34 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4"></script>
     <script src="js/chart-interop.js"></script>
     <script src="_framework/blazor.webassembly.js"></script>
+    <script>
+        // Scroll-triggered fade-in animation
+        document.addEventListener('DOMContentLoaded', function () {
+            const observer = new IntersectionObserver(function (entries) {
+                entries.forEach(function (entry) {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+            // Observe elements after Blazor renders
+            function observeElements() {
+                document.querySelectorAll('.feature-card, .project-card, .project-preview-card, .work-project-card, .skill-card, .social-link-card, .timeline-item').forEach(function (el) {
+                    if (!el.classList.contains('fade-in')) {
+                        el.classList.add('fade-in');
+                        observer.observe(el);
+                    }
+                });
+            }
+
+            // Re-observe on Blazor navigation
+            const mutationObserver = new MutationObserver(function () {
+                setTimeout(observeElements, 100);
+            });
+            mutationObserver.observe(document.getElementById('app'), { childList: true, subtree: true });
+        });
+    </script>
 </body>
 
 </html>
