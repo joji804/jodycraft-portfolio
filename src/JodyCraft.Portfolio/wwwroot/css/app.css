@@ -491,6 +491,80 @@ a:hover {
     font-family: var(--font-en);
 }
 
+/* ---- About Page: Achievements ---- */
+.about-achievements-section {
+    padding: 3rem 0 4rem;
+    background-color: rgba(17, 30, 46, 0.5);
+}
+
+.achievement-item {
+    padding: 1.5rem 1rem;
+}
+
+.achievement-number {
+    display: block;
+    font-family: var(--font-en);
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: var(--color-accent);
+    line-height: 1.2;
+    margin-bottom: 0.5rem;
+}
+
+.achievement-number small {
+    font-size: 0.5em;
+    color: var(--color-text-muted);
+    font-weight: 400;
+}
+
+.achievement-item p {
+    color: var(--color-text-muted);
+    font-size: 0.9rem;
+    margin: 0;
+}
+
+/* ---- About Page: Target Customers ---- */
+.about-target-section {
+    padding: 5rem 0;
+}
+
+.section-subtitle {
+    text-align: center;
+    color: var(--color-text-muted);
+    margin-bottom: 2.5rem;
+    font-size: 1rem;
+}
+
+.target-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    background-color: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    padding: 1.25rem 1.5rem;
+    height: 100%;
+    transition: all var(--transition);
+}
+
+.target-item:hover {
+    border-color: rgba(76, 175, 80, 0.3);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-hover);
+}
+
+.target-icon {
+    font-size: 1.5rem;
+    flex-shrink: 0;
+    line-height: 1.4;
+}
+
+.target-item p {
+    margin: 0;
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
 /* ---- Skills Page ---- */
 .skills-section {
     padding: 5rem 0;
@@ -855,6 +929,515 @@ a:hover {
     .project-card,
     .work-project-card {
         padding: 1.5rem;
+    }
+}
+
+/* ---- Services Pages ---- */
+.services-hero {
+    background: radial-gradient(ellipse at 30% 0%, rgba(30, 58, 95, 0.6) 0%, transparent 60%),
+                radial-gradient(ellipse at 70% 100%, rgba(76, 175, 80, 0.08) 0%, transparent 50%),
+                var(--color-bg);
+    padding: 10rem 0 7rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.services-hero::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-image: radial-gradient(rgba(76, 175, 80, 0.07) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+}
+
+/* Pain Points */
+.pain-section {
+    padding: 5rem 0;
+    background-color: rgba(17, 30, 46, 0.5);
+}
+
+.pain-list {
+    background-color: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    padding: 2rem;
+    box-shadow: var(--shadow-card);
+}
+
+.pain-item {
+    padding: 0.75rem 0;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    border-bottom: 1px solid rgba(30, 48, 72, 0.5);
+}
+
+.pain-item:last-child {
+    border-bottom: none;
+}
+
+.pain-check {
+    color: var(--color-accent);
+    font-size: 1.1rem;
+    flex-shrink: 0;
+}
+
+/* Service Cards */
+.service-cards-section {
+    padding: 6rem 0;
+}
+
+.service-card {
+    background-color: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    padding: 2.5rem 2rem;
+    text-align: center;
+    height: 100%;
+    transition: all var(--transition);
+    box-shadow: var(--shadow-card);
+    position: relative;
+    overflow: hidden;
+}
+
+.service-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--color-accent), var(--color-accent-light));
+    opacity: 0;
+    transition: opacity var(--transition);
+}
+
+.service-card:hover {
+    border-color: rgba(76, 175, 80, 0.3);
+    transform: translateY(-6px);
+    box-shadow: var(--shadow-hover);
+}
+
+.service-card:hover::before {
+    opacity: 1;
+}
+
+.service-card-icon {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+.service-card h3 {
+    font-size: 1.3rem;
+    margin-bottom: 1rem;
+}
+
+.service-card p {
+    color: var(--color-text-muted);
+    font-size: 0.9rem;
+    line-height: 1.8;
+}
+
+.service-price {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--color-accent);
+    margin: 1.5rem 0;
+    font-family: var(--font-en);
+}
+
+.btn-outline-accent {
+    color: var(--color-accent);
+    border: 1px solid var(--color-accent);
+    border-radius: var(--radius-sm);
+    font-weight: 600;
+    padding: 0.5rem 1.5rem;
+    transition: all var(--transition);
+    background: transparent;
+}
+
+.btn-outline-accent:hover {
+    background-color: var(--color-accent);
+    color: #fff;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(76, 175, 80, 0.25);
+}
+
+/* Strengths */
+.strengths-section {
+    padding: 6rem 0;
+    background-color: rgba(17, 30, 46, 0.5);
+}
+
+.strength-card {
+    padding: 2rem;
+}
+
+.strength-number {
+    font-family: var(--font-en);
+    font-size: 2rem;
+    font-weight: 700;
+    color: rgba(76, 175, 80, 0.2);
+    margin-bottom: 0.75rem;
+}
+
+.strength-card h4 {
+    font-size: 1.1rem;
+    margin-bottom: 0.75rem;
+}
+
+.strength-card p {
+    color: var(--color-text-muted);
+    font-size: 0.9rem;
+    line-height: 1.8;
+}
+
+/* Flow Steps */
+.flow-section {
+    padding: 5rem 0;
+}
+
+.flow-steps {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-top: 2rem;
+}
+
+.flow-step {
+    background-color: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    padding: 1.5rem 1.25rem;
+    min-width: 140px;
+    text-align: center;
+    box-shadow: var(--shadow-card);
+}
+
+.flow-step-number {
+    font-size: 1.5rem;
+    color: var(--color-accent);
+    margin-bottom: 0.5rem;
+}
+
+.flow-step-label {
+    font-size: 0.85rem;
+    line-height: 1.5;
+}
+
+.flow-step-label small {
+    color: var(--color-text-muted);
+    font-size: 0.75rem;
+}
+
+.flow-arrow {
+    color: var(--color-accent);
+    font-size: 1.2rem;
+    font-weight: 700;
+}
+
+/* FAQ */
+.faq-section {
+    padding: 5rem 0;
+    background-color: rgba(17, 30, 46, 0.5);
+}
+
+.faq-item {
+    background-color: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    padding: 1.5rem 2rem;
+    margin-bottom: 1rem;
+    box-shadow: var(--shadow-card);
+}
+
+.faq-item h4 {
+    font-size: 0.95rem;
+    color: var(--color-accent);
+    margin-bottom: 0.75rem;
+}
+
+.faq-item p {
+    color: var(--color-text-muted);
+    font-size: 0.9rem;
+    margin-bottom: 0;
+    line-height: 1.8;
+}
+
+/* Diagnosis / Advisor Detail Pages */
+.diagnosis-section,
+.advisor-section {
+    padding: 5rem 0;
+}
+
+.challenge-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding: 0.75rem 1rem;
+    background-color: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    font-size: 0.9rem;
+    line-height: 1.6;
+    box-shadow: var(--shadow-card);
+}
+
+.challenge-icon {
+    color: var(--color-accent);
+    flex-shrink: 0;
+}
+
+.deliverables-section {
+    padding: 5rem 0;
+    background-color: rgba(17, 30, 46, 0.5);
+}
+
+.deliverable-card {
+    background-color: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    padding: 2rem;
+    height: 100%;
+    transition: all var(--transition);
+    box-shadow: var(--shadow-card);
+    position: relative;
+    padding-left: 4.5rem;
+}
+
+.deliverable-card:hover {
+    border-color: rgba(76, 175, 80, 0.3);
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-hover);
+}
+
+.deliverable-number {
+    position: absolute;
+    left: 1.5rem;
+    top: 2rem;
+    font-family: var(--font-en);
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: rgba(76, 175, 80, 0.25);
+}
+
+.deliverable-card h4 {
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+.deliverable-card p {
+    color: var(--color-text-muted);
+    font-size: 0.85rem;
+    margin-bottom: 0;
+    line-height: 1.7;
+}
+
+/* Pricing Box */
+.pricing-flow-section {
+    padding: 5rem 0;
+}
+
+.pricing-box {
+    background-color: var(--color-bg-card);
+    border: 1px solid rgba(76, 175, 80, 0.3);
+    border-radius: var(--radius);
+    padding: 2.5rem 2rem;
+    text-align: center;
+    box-shadow: var(--shadow-card);
+}
+
+.pricing-amount {
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--color-accent);
+    font-family: var(--font-en);
+}
+
+.pricing-note {
+    color: var(--color-text-muted);
+    font-size: 0.85rem;
+    margin-bottom: 1.5rem;
+}
+
+.pricing-details {
+    list-style: none;
+    padding: 0;
+    text-align: left;
+}
+
+.pricing-details li {
+    padding: 0.4rem 0;
+    padding-left: 1.25rem;
+    position: relative;
+    color: var(--color-text-muted);
+    font-size: 0.9rem;
+}
+
+.pricing-details li::before {
+    content: '•';
+    color: var(--color-accent);
+    position: absolute;
+    left: 0;
+}
+
+/* Steps */
+.step-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.step-item {
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+    padding: 1rem 1.25rem;
+    background-color: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    box-shadow: var(--shadow-card);
+}
+
+.step-num {
+    color: var(--color-accent);
+    font-weight: 700;
+    font-size: 1.1rem;
+    flex-shrink: 0;
+    min-width: 2rem;
+    text-align: center;
+}
+
+.step-item strong {
+    font-size: 0.95rem;
+    display: block;
+    margin-bottom: 0.25rem;
+}
+
+.step-item p {
+    color: var(--color-text-muted);
+    font-size: 0.82rem;
+    margin-bottom: 0;
+    line-height: 1.6;
+}
+
+/* Why Section */
+.why-section {
+    padding: 5rem 0;
+    background-color: rgba(17, 30, 46, 0.5);
+}
+
+.why-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.why-item {
+    padding: 0.75rem 1rem;
+    padding-left: 2rem;
+    position: relative;
+    background-color: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    font-size: 0.9rem;
+    box-shadow: var(--shadow-card);
+}
+
+.why-item::before {
+    content: '→';
+    color: var(--color-accent);
+    position: absolute;
+    left: 0.75rem;
+    font-weight: 400;
+}
+
+/* Next Steps */
+.next-steps-section {
+    padding: 5rem 0;
+}
+
+.next-step-card {
+    background-color: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    padding: 2rem;
+    text-align: center;
+    height: 100%;
+    transition: all var(--transition);
+    box-shadow: var(--shadow-card);
+}
+
+.next-step-card:hover {
+    border-color: rgba(76, 175, 80, 0.3);
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-hover);
+}
+
+.next-step-card h4 {
+    font-size: 1.1rem;
+    margin-bottom: 0.75rem;
+}
+
+.next-step-card p {
+    color: var(--color-accent);
+    font-weight: 700;
+    font-family: var(--font-en);
+    font-size: 1.2rem;
+    margin-bottom: 0.25rem;
+}
+
+.next-step-card .small {
+    color: var(--color-text-muted);
+    font-size: 0.82rem;
+    margin-bottom: 1rem;
+}
+
+/* Target Section */
+.target-section {
+    padding: 5rem 0;
+}
+
+/* Responsive - Services */
+@media (max-width: 768px) {
+    .services-hero {
+        padding: 7rem 0 5rem;
+    }
+
+    .flow-steps {
+        flex-direction: column;
+    }
+
+    .flow-arrow {
+        transform: rotate(90deg);
+    }
+
+    .flow-step {
+        width: 100%;
+    }
+
+    .service-cards-section,
+    .strengths-section,
+    .pain-section,
+    .faq-section,
+    .diagnosis-section,
+    .advisor-section,
+    .deliverables-section,
+    .pricing-flow-section,
+    .why-section,
+    .target-section,
+    .next-steps-section {
+        padding: 3.5rem 0;
+    }
+
+    .deliverable-card {
+        padding-left: 2rem;
+    }
+
+    .deliverable-number {
+        display: none;
     }
 }
 

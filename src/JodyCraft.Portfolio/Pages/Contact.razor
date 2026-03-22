@@ -23,24 +23,39 @@
                     </div>
 
                     <div class="mb-3">
+                        <label for="company" class="form-label">会社名</label>
+                        <input type="text" class="form-control" id="company" name="company" />
+                    </div>
+
+                    <div class="mb-3">
                         <label for="email" class="form-label">メールアドレス *</label>
                         <input type="email" class="form-control" id="email" name="email" required />
                     </div>
 
                     <div class="mb-3">
-                        <label for="subject" class="form-label">件名</label>
+                        <label for="subject" class="form-label">ご関心のあるサービス</label>
                         <select class="form-select" id="subject" name="subject">
+                            <option value="まずは相談したい">まずは相談したい</option>
+                            <option value="業務改善診断">業務改善診断</option>
+                            <option value="月額アドバイザー">月額アドバイザー</option>
                             <option value="技術相談">技術相談</option>
                             <option value="開発依頼">開発依頼</option>
-                            <option value="講演依頼">講演依頼</option>
-                            <option value="コンサルティング">コンサルティング</option>
                             <option value="その他">その他</option>
                         </select>
                     </div>
 
                     <div class="mb-3">
                         <label for="message" class="form-label">メッセージ *</label>
-                        <textarea class="form-control" id="message" name="message" rows="5" required></textarea>
+                        <textarea class="form-control" id="message" name="message" rows="5" required placeholder="現在のお困りごとや、ご質問内容をお書きください"></textarea>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="preferred-contact" class="form-label">ご希望の連絡方法</label>
+                        <select class="form-select" id="preferred-contact" name="preferred-contact">
+                            <option value="メール">メール</option>
+                            <option value="オンラインMTG（平日18時以降）">オンラインMTG（平日18時以降）</option>
+                            <option value="オンラインMTG（土曜日）">オンラインMTG（土曜日）</option>
+                        </select>
                     </div>
 
                     <button type="submit" class="btn btn-accent btn-lg">送信する</button>
@@ -92,7 +107,6 @@
                         <li>製造業の試験自動化・DX化の進め方</li>
                         <li>GitHub Copilot の導入・活用方法</li>
                         <li>WinForms/WPF アプリの設計レビュー</li>
-                        <li>勉強会・社内研修での登壇</li>
                     </ul>
                 </div>
             </div>
