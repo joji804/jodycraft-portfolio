@@ -1,0 +1,705 @@
+@page "/services/diagnosis/sample-report"
+
+<PageTitle>サンプル診断レポート | JodyCraft</PageTitle>
+
+<div class="sample-report">
+    <div class="report-nav">
+        <a href="services/diagnosis" class="back-link">← 業務改善診断に戻る</a>
+    </div>
+
+    <div class="report-notice">
+        ※ 本レポートはサービス内容をご理解いただくためのサンプルです。架空の企業を対象としています。
+    </div>
+
+    <!-- Report Header -->
+    <div class="report-header">
+        <h1>業務改善診断レポート</h1>
+        <p class="report-subtitle">品質検査データ管理・検査成績書発行プロセス分析</p>
+        <p class="report-client">中部精密工業株式会社 御中</p>
+
+        <table class="table report-table report-meta-table">
+            <tbody>
+                <tr><td>文書番号</td><td>JC-DIA-2026-003</td></tr>
+                <tr><td>版数</td><td>v1.0</td></tr>
+                <tr><td>作成日</td><td>2026年3月</td></tr>
+                <tr><td>作成者</td><td>JodyCraft（製造業×C#コンサルタント）</td></tr>
+                <tr><td>機密区分</td><td>社外秘</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Executive Summary -->
+    <section class="report-section">
+        <h2>エグゼクティブサマリー</h2>
+
+        <div class="report-callout">
+            <p>中部精密工業株式会社様の品質検査データ管理および検査成績書発行プロセスを分析した結果、以下の3つの改善機会を特定しました。</p>
+        </div>
+
+        <table class="table report-table">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>改善テーマ</th>
+                    <th>現状の課題</th>
+                    <th>改善効果（見込み）</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>検査データ入力のアプリ化</td>
+                    <td>Excel手入力に月40時間を投下。転記ミスのリスクあり</td>
+                    <td>入力工数50〜70%削減、転記ミスほぼ解消</td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>検査成績書の自動生成</td>
+                    <td>VBAマクロの属人化（保守可能者1名）。月20時間の作業工数</td>
+                    <td>作成工数80〜90%削減、属人化の解消</td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td>トレーサビリティ対応の基盤構築</td>
+                    <td>過去データの検索に時間を要し、顧客要求への即応が困難</td>
+                    <td>検索時間95%以上短縮</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>推奨アプローチ</h3>
+        <p>C# WinFormsアプリとSQLiteデータベースを軸に、データ入力→帳票生成→データ活用の3段階で段階的に改善することを推奨します。初期投資は概算¥50〜80万（税別）、約5〜7ヶ月で投資回収の見込みです。</p>
+
+        <h3>優先度</h3>
+        <p><strong>検査データ入力アプリの構築を最優先</strong>で着手することを推奨します。理由: データベースが他の改善（帳票自動生成・データ検索）の基盤となるため、ここから始めることで後続施策の効果が最大化されます。</p>
+
+        <h3>現状維持のリスク</h3>
+        <ul>
+            <li><strong>事業継続リスク</strong>: VBAマクロ保守者（1名）の退職・異動時に、検査成績書の発行業務が停止する可能性がある</li>
+            <li><strong>品質リスク</strong>: Excelアップデートに伴うVBA不具合が再発した場合、納期遅延や顧客信用への影響が想定される</li>
+            <li><strong>競争力低下</strong>: トレーサビリティ要求の厳格化が進む中、データ検索に時間を要する体制では顧客監査への対応が困難になる</li>
+        </ul>
+    </section>
+
+    <hr class="report-divider" />
+
+    <!-- Chapter 1 -->
+    <section class="report-section">
+        <h2>1. 診断の概要</h2>
+
+        <h3>1.1 診断の目的</h3>
+        <p>本診断は、中部精密工業株式会社様の品質検査データ管理および検査成績書発行プロセスを分析し、C#アプリケーションによる改善の可能性と具体的なアプローチを明らかにすることを目的としています。</p>
+
+        <h3>1.2 診断対象業務</h3>
+        <table class="table report-table">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>業務名</th>
+                    <th>担当部門</th>
+                    <th>現在の主要ツール</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>1</td><td>品質検査データの入力・管理</td><td>品質管理部（8名）</td><td>Excel（手入力）</td></tr>
+                <tr><td>2</td><td>検査成績書の作成・発行</td><td>品質管理部</td><td>Excel VBAマクロ</td></tr>
+            </tbody>
+        </table>
+
+        <h3>1.3 診断の進め方</h3>
+        <table class="table report-table">
+            <thead>
+                <tr>
+                    <th>ステップ</th>
+                    <th>内容</th>
+                    <th>実施時期</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>ヒアリング</td><td>品質管理部 担当者様への聞き取り（90分）</td><td>2026年2月</td></tr>
+                <tr><td>現場確認</td><td>実際の作業手順・Excel帳票の確認</td><td>同上</td></tr>
+                <tr><td>業務フロー分析</td><td>現状の作業手順・データフローの可視化</td><td>2026年2〜3月</td></tr>
+                <tr><td>課題抽出・改善提案</td><td>ボトルネック・リスクの特定、改善策の立案</td><td>同上</td></tr>
+                <tr><td>レポート納品</td><td>本レポートの作成・説明</td><td>2026年3月</td></tr>
+            </tbody>
+        </table>
+
+        <h3>1.4 前提条件・制約</h3>
+        <ul>
+            <li>本診断はヒアリングおよび提供資料に基づく分析です</li>
+            <li>実際のExcelファイル・VBAコードの詳細レビューは含みません（実装フェーズで実施）</li>
+            <li>費用概算は参考値であり、正式見積もりは実装フェーズで提示します</li>
+        </ul>
+    </section>
+
+    <hr class="report-divider" />
+
+    <!-- Chapter 2 -->
+    <section class="report-section">
+        <h2>2. 現状の業務プロセス分析</h2>
+
+        <h3>2.1 品質検査データ入力フロー</h3>
+        <pre class="report-flow-diagram">[1. 検査実施]
+  │  現場で測定器を使い、検査項目を測定
+  │  担当: 検査担当者 / 所要時間: 測定自体は対象外
+  ▼
+[2. 紙記録への転記]
+  │  測定値を紙の検査記録用紙に手書きで記録
+  │  担当: 検査担当者 / 所要時間: 約5分/件
+  │  ⚠ 手書きの読み間違い・書き間違いリスク
+  ▼
+[3. Excelへの手入力]
+  │  紙の記録を見ながらExcelシートに手入力
+  │  担当: 品質管理部員 / 所要時間: 約10分/件
+  │  ⚠ 紙→Excelの二重転記によるミスリスク
+  │  ⚠ 入力規則が統一されておらず、表記揺れが発生
+  ▼
+[4. 判定・確認]
+  │  規格値との照合をExcel関数で実施
+  │  担当: 品質管理部員 / 所要時間: 約3分/件
+  │  ⚠ 判定式がシートごとに異なる場合あり
+  ▼
+[5. ファイルサーバへ保存]
+  │  完成したExcelファイルを共有フォルダに保存
+  │  担当: 品質管理部員 / 所要時間: 約2分/件
+  │  ⚠ ファイル名・フォルダ構成のルールが曖昧
+  │  ⚠ 過去データの検索に時間がかかる（トレーサビリティ対応に支障）
+  ▼
+[完了]</pre>
+
+        <h3>2.2 検査成績書発行フロー</h3>
+        <pre class="report-flow-diagram">[1. VBAマクロ実行]
+  │  検査データExcelを開き、VBAマクロで検査成績書を生成
+  │  担当: 品質管理部員 / 所要時間: 約5分/件
+  │  ⚠ VBAを保守できるのは1名のみ（属人化）
+  │  ⚠ 直近でExcelアップデートによりマクロの一部が動作しなくなった
+  ▼
+[2. 印刷]
+  │  生成されたExcelの検査成績書を印刷
+  │  担当: 品質管理部員 / 所要時間: 約1分/件
+  ▼
+[3. 押印]
+  │  印刷した成績書に品質管理責任者が押印
+  │  担当: 品質管理責任者 / 所要時間: 約1分/件
+  │  ⚠ 責任者不在時に発行が滞る
+  ▼
+[4. スキャン・PDF化]
+  │  押印済みの成績書をスキャナーでPDF化
+  │  担当: 品質管理部員 / 所要時間: 約2分/件
+  │  ⚠ 印刷→スキャンの二重作業（デジタル→紙→デジタル）
+  ▼
+[5. メール送付]
+  │  PDF化した成績書を顧客にメールで送付
+  │  担当: 品質管理部員 / 所要時間: 約3分/件
+  ▼
+[完了]</pre>
+
+        <h3>2.3 定量データ</h3>
+        <table class="table report-table">
+            <thead>
+                <tr>
+                    <th>指標</th>
+                    <th>現状値</th>
+                    <th>備考</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>月間検査成績書発行件数</td><td>約200件</td><td>自動車部品・シャフト・ベアリング部品</td></tr>
+                <tr><td>データ入力 月間工数</td><td>約40時間</td><td>品質管理部8名で分担</td></tr>
+                <tr><td>成績書作成 月間工数</td><td>約20時間</td><td>印刷・押印・スキャン・送付含む</td></tr>
+                <tr><td>過去データ検索 月間推定工数</td><td>約8時間</td><td>トレーサビリティ対応・顧客問い合わせ対応</td></tr>
+                <tr><td>転記ミス対応 月間推定工数</td><td>約4時間</td><td>修正・再発行・顧客連絡</td></tr>
+                <tr><td>VBAトラブル対応 月間推定工数</td><td>約3時間</td><td>不定期だが直近で大きな障害あり</td></tr>
+                <tr class="report-table-highlight"><td><strong>月間合計工数</strong></td><td><strong>約75時間</strong></td><td><strong>人件費換算 約¥18.8万/月</strong></td></tr>
+                <tr class="report-table-highlight"><td><strong>年間合計工数</strong></td><td><strong>約900時間</strong></td><td><strong>人件費換算 約¥225万/年</strong></td></tr>
+            </tbody>
+        </table>
+        <p class="report-note">※ 人件費は製造業技術職の標準時給 ¥2,500 で換算</p>
+    </section>
+
+    <hr class="report-divider" />
+
+    <!-- Chapter 3 -->
+    <section class="report-section">
+        <h2>3. 課題分析</h2>
+
+        <h3>3.1 課題一覧</h3>
+        <table class="table report-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>課題</th>
+                    <th>カテゴリ</th>
+                    <th>影響度</th>
+                    <th>緊急度</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>C1</td><td>Excel手入力による転記ミスリスク</td><td>品質リスク</td><td>高</td><td>高</td></tr>
+                <tr><td>C2</td><td>VBAマクロの属人化（保守者1名）</td><td>事業継続リスク</td><td>高</td><td>高</td></tr>
+                <tr><td>C3</td><td>Excelアップデートによるマクロ障害</td><td>事業継続リスク</td><td>高</td><td>中</td></tr>
+                <tr><td>C4</td><td>データ入力に月40時間の工数</td><td>生産性</td><td>中</td><td>中</td></tr>
+                <tr><td>C5</td><td>成績書作成に月20時間（印刷→スキャンの二重作業含む）</td><td>生産性</td><td>中</td><td>中</td></tr>
+                <tr><td>C6</td><td>過去データの検索が困難（トレーサビリティ対応）</td><td>競争力</td><td>高</td><td>高</td></tr>
+                <tr><td>C7</td><td>入力規則・ファイル管理の標準化不足</td><td>品質リスク</td><td>中</td><td>低</td></tr>
+                <tr><td>C8</td><td>品質データの傾向分析・活用ができない</td><td>競争力</td><td>中</td><td>低</td></tr>
+            </tbody>
+        </table>
+
+        <h3>3.2 影響度×緊急度マトリクス</h3>
+        <table class="table report-table report-matrix">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>緊急度 高</th>
+                    <th>緊急度 中</th>
+                    <th>緊急度 低</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>影響度 高</strong></td>
+                    <td class="matrix-critical">C1 転記ミス, C2 属人化, C6 トレーサビリティ</td>
+                    <td class="matrix-high">C3 マクロ障害</td>
+                    <td>—</td>
+                </tr>
+                <tr>
+                    <td><strong>影響度 中</strong></td>
+                    <td>—</td>
+                    <td class="matrix-medium">C4 入力工数, C5 成績書工数</td>
+                    <td class="matrix-low">C7 標準化不足, C8 データ活用</td>
+                </tr>
+                <tr>
+                    <td><strong>影響度 低</strong></td>
+                    <td>—</td>
+                    <td>—</td>
+                    <td>—</td>
+                </tr>
+            </tbody>
+        </table>
+        <p>→ C1・C2・C6が「影響度高×緊急度高」に位置し、優先対応が必要です。</p>
+
+        <h3>3.3 因果関係図</h3>
+        <pre class="report-flow-diagram">[根本原因A] ExcelとVBAへの依存
+  │
+  ├─→ C1: 転記ミスリスク ──────→ 不良品流出・顧客クレームの可能性
+  │
+  ├─→ C2: VBA属人化 ──────────→ 保守者の退職・異動で業務停止リスク
+  │
+  ├─→ C3: Excelアップデート障害 ──→ 予期しない業務停止（実際に発生済み）
+  │
+  └─→ C7: 入力規則の未標準化 ───→ データ品質のばらつき
+
+[根本原因B] データがファイルに分散
+  │
+  ├─→ C6: トレーサビリティ対応困難 → 顧客監査・品質要求への対応遅延
+  │
+  ├─→ C8: 傾向分析が不可能 ────→ 品質改善のPDCAが回らない
+  │
+  └─→ C4/C5: 手作業の工数 ────→ 年間約900時間（¥225万相当）の機会損失</pre>
+
+        <h3>3.4 年間コスト試算</h3>
+        <table class="table report-table">
+            <thead>
+                <tr>
+                    <th>課題グループ</th>
+                    <th>月間工数ロス</th>
+                    <th>年間工数ロス</th>
+                    <th>人件費換算（年間）</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>データ入力関連（C1, C4, C7）</td><td>44時間</td><td>528時間</td><td>¥132万</td></tr>
+                <tr><td>成績書作成関連（C2, C3, C5）</td><td>23時間</td><td>276時間</td><td>¥69万</td></tr>
+                <tr><td>データ検索・活用（C6, C8）</td><td>8時間</td><td>96時間</td><td>¥24万</td></tr>
+                <tr class="report-table-highlight"><td><strong>合計</strong></td><td><strong>75時間</strong></td><td><strong>900時間</strong></td><td><strong>¥225万</strong></td></tr>
+            </tbody>
+        </table>
+        <p class="report-note">※ 時給 ¥2,500 × 年間工数で算出。VBAトラブルの間接的な損失（納期遅延等）は含まず</p>
+    </section>
+
+    <hr class="report-divider" />
+
+    <!-- Chapter 4 -->
+    <section class="report-section">
+        <h2>4. 改善提案</h2>
+
+        <h3>4.1 改善の全体像</h3>
+        <pre class="report-flow-diagram">[現状] Excel手入力 + VBAマクロ + ファイルサーバ
+         ↓
+[Phase 1-2] C# WinFormsアプリ + SQLiteデータベース + 帳票自動生成
+         ↓ （将来）
+[Phase 3] データ分析ダッシュボード + 管理図・傾向分析</pre>
+
+        <h3>4.2 提案1: 品質検査データ入力アプリ（C1, C4, C6, C7 を解決）</h3>
+        <p>Excel手入力を廃止し、C# WinFormsの専用入力アプリでデータを直接入力・管理します。入力値のバリデーション（範囲チェック・必須項目チェック）により転記ミスを防止し、SQLiteデータベースに蓄積することで検索・トレーサビリティ対応の基盤を構築します。</p>
+
+        <h4>機能一覧</h4>
+        <table class="table report-table">
+            <thead>
+                <tr>
+                    <th>機能</th>
+                    <th>説明</th>
+                    <th>解決する課題</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>データ入力画面</td><td>製品選択→検査項目の測定値を入力</td><td>C4（工数削減）</td></tr>
+                <tr><td>入力バリデーション</td><td>規格値の範囲チェック、必須項目チェック</td><td>C1（転記ミス防止）</td></tr>
+                <tr><td>自動判定</td><td>規格マスタに基づくOK/NG自動判定</td><td>C1（判定ミス防止）</td></tr>
+                <tr><td>検索・フィルタ</td><td>日付・製品・ロット番号等での絞り込み</td><td>C6（トレーサビリティ）</td></tr>
+                <tr><td>マスタ管理</td><td>製品・規格値・検査項目の登録・編集</td><td>C7（標準化）</td></tr>
+                <tr><td>Excel連携</td><td>既存データのインポート/エクスポート</td><td>—（移行支援）</td></tr>
+            </tbody>
+        </table>
+
+        <h4>画面イメージ（概念）</h4>
+        <pre class="report-flow-diagram">┌──────────────────────────────────────────────┐
+│ 品質検査データ入力          [保存] [クリア]     │
+├──────────────────────────────────────────────┤
+│ 製品: [▼ SH-A100 精密シャフト  ]              │
+│ ロットNo: [L2026-0315-001    ]               │
+│ 検査日:   [2026/03/15        ]               │
+├──────────────────────────────────────────────┤
+│ # │ 検査項目    │ 規格値       │ 測定値 │判定│
+│ 1 │ 外径 φA     │ 10.00±0.02  │ [    ] │ —  │
+│ 2 │ 内径 φB     │  5.00±0.01  │ [    ] │ —  │
+│ 3 │ 全長 L      │ 25.00±0.05  │ [    ] │ —  │
+│ 4 │ 面粗度 Ra   │ ≦0.8        │ [    ] │ —  │
+│ 5 │ 真円度      │ ≦0.005      │ [    ] │ —  │
+├──────────────────────────────────────────────┤
+│ ※ 規格外の値を入力すると赤色で警告表示        │
+└──────────────────────────────────────────────┘</pre>
+
+        <h4>技術構成</h4>
+        <table class="table report-table">
+            <thead>
+                <tr>
+                    <th>要素</th>
+                    <th>技術</th>
+                    <th>選定理由（顧客目線）</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>UI</td><td>C# WinForms (.NET 8)</td><td>Windows PCで追加インストールなしで動作。操作感がExcelに近い</td></tr>
+                <tr><td>DB</td><td>SQLite</td><td>サーバ不要。ファイル1つで完結するため導入・バックアップが容易</td></tr>
+                <tr><td>データアクセス</td><td>Dapper</td><td>シンプルで保守しやすい。将来の引き継ぎ時にも理解しやすい</td></tr>
+                <tr><td>Excel連携</td><td>ClosedXML</td><td>既存Excelデータの取り込み・書き出しに対応。MITライセンスで商用無料</td></tr>
+            </tbody>
+        </table>
+
+        <h4>期待効果</h4>
+        <table class="table report-table">
+            <thead>
+                <tr>
+                    <th>指標</th>
+                    <th>改善前</th>
+                    <th>改善後</th>
+                    <th>改善率</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>データ入力時間</td><td>約10分/件</td><td>約3〜5分/件</td><td>50〜70%削減</td></tr>
+                <tr><td>月間入力工数</td><td>40時間</td><td>12〜20時間</td><td>50〜70%削減</td></tr>
+                <tr><td>転記ミス</td><td>月数件（推定）</td><td>ほぼ0件</td><td>ほぼ解消</td></tr>
+                <tr><td>データ検索時間</td><td>5〜30分/回</td><td>数秒</td><td>95%以上短縮</td></tr>
+            </tbody>
+        </table>
+
+        <h3>4.3 提案2: 検査成績書自動生成システム（C2, C3, C5 を解決）</h3>
+        <p>VBAマクロを廃止し、C#アプリケーションからデータベースの検査データを基に検査成績書を自動生成します。Excelテンプレートへのデータ差し込みにはClosedXMLを使用し、PDF出力が必要な場合はPDFSharpで変換します。属人化を解消し、誰でもボタン1つで帳票を出力できる状態にします。</p>
+
+        <h4>機能一覧</h4>
+        <table class="table report-table">
+            <thead>
+                <tr>
+                    <th>機能</th>
+                    <th>説明</th>
+                    <th>解決する課題</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>Excel成績書生成</td><td>テンプレートに検査データを自動差し込み</td><td>C5（工数削減）</td></tr>
+                <tr><td>PDF変換</td><td>生成したExcelをPDFに自動変換</td><td>C5（スキャン作業の廃止）</td></tr>
+                <tr><td>一括生成</td><td>日付・ロット範囲で複数件をまとめて生成</td><td>C5（工数削減）</td></tr>
+                <tr><td>プレビュー表示</td><td>出力前に内容を画面で確認</td><td>C1（確認作業の効率化）</td></tr>
+                <tr><td>テンプレート管理</td><td>顧客別・帳票種類別のテンプレート切替</td><td>C2（属人化解消）</td></tr>
+            </tbody>
+        </table>
+
+        <h4>技術構成</h4>
+        <table class="table report-table">
+            <thead>
+                <tr>
+                    <th>要素</th>
+                    <th>技術</th>
+                    <th>選定理由（顧客目線）</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>Excel生成</td><td>ClosedXML</td><td>既存のExcelテンプレートをそのまま流用可能。MITライセンスで商用無料</td></tr>
+                <tr><td>PDF変換</td><td>PDFSharp</td><td>MITライセンスで商用無料。Excel→PDF変換に十分な機能</td></tr>
+                <tr><td>UI</td><td>C# WinForms (.NET 8)</td><td>提案1のアプリに統合。操作画面を1つにまとめられる</td></tr>
+                <tr><td>データソース</td><td>SQLite（提案1と共通）</td><td>提案1で蓄積したデータを直接参照</td></tr>
+            </tbody>
+        </table>
+
+        <div class="report-callout">
+            <p><strong>ライセンスについて</strong>: ClosedXML・PDFSharpはいずれもMITライセンスであり、商用利用に追加費用は発生しません。年商規模に関わらず安心してご利用いただけます。</p>
+        </div>
+
+        <h4>期待効果</h4>
+        <table class="table report-table">
+            <thead>
+                <tr>
+                    <th>指標</th>
+                    <th>改善前</th>
+                    <th>改善後</th>
+                    <th>改善率</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>成績書1件の作成時間</td><td>約6分（生成〜メール送付）</td><td>約1分（ボタン操作のみ）</td><td>約80%削減</td></tr>
+                <tr><td>月間作成工数</td><td>20時間</td><td>2〜4時間</td><td>80〜90%削減</td></tr>
+                <tr><td>印刷・スキャン作業</td><td>月200件分</td><td>0件（PDF直接出力）</td><td>100%解消</td></tr>
+                <tr><td>属人化リスク</td><td>VBA保守者1名のみ</td><td>誰でも実行可能</td><td>解消</td></tr>
+            </tbody>
+        </table>
+    </section>
+
+    <hr class="report-divider" />
+
+    <!-- Chapter 5 -->
+    <section class="report-section">
+        <h2>5. 改善ロードマップ</h2>
+
+        <h3>5.1 推奨ステップ</h3>
+        <pre class="report-flow-diagram">Phase 1（1〜2ヶ月目）: 品質検査データ入力アプリの構築
+  │  → データベース基盤を先に構築することで、後続施策の土台となる
+  │  → 日常業務で即効果を実感できるため、現場の改善意欲が向上する
+  │
+Phase 2（2〜3ヶ月目）: 検査成績書自動生成の構築
+  │  → Phase 1のデータベースを活用し、VBA依存を解消する
+  │  → 属人化リスクへの早期対処
+  │
+Phase 3（4〜6ヶ月目〜）: データ分析・ダッシュボード（将来構想）
+     → Phase 1-2で蓄積されたデータを活用
+     → 管理図（Xbar-R図）、傾向分析、品質レポートの自動化
+     → Phase 1-2の効果を確認した上で着手を判断</pre>
+
+        <h3>5.2 各Phaseの概要</h3>
+        <table class="table report-table">
+            <thead>
+                <tr>
+                    <th>Phase</th>
+                    <th>内容</th>
+                    <th>概算工期</th>
+                    <th>概算費用（税別）</th>
+                    <th>前提条件</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>Phase 1</td><td>データ入力アプリ</td><td>4〜6週間</td><td>¥30〜50万</td><td>なし</td></tr>
+                <tr><td>Phase 2</td><td>検査成績書自動生成</td><td>3〜4週間</td><td>¥20〜30万</td><td>Phase 1完了</td></tr>
+                <tr><td>Phase 3</td><td>データ分析ダッシュボード</td><td>2〜3週間</td><td>¥15〜20万</td><td>Phase 1-2完了</td></tr>
+            </tbody>
+        </table>
+
+        <h3>5.3 優先順位の考え方</h3>
+        <table class="table report-table">
+            <thead>
+                <tr>
+                    <th>基準</th>
+                    <th>Phase 1</th>
+                    <th>Phase 2</th>
+                    <th>Phase 3</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>即効性（すぐ効果を実感）</td><td>◎</td><td>○</td><td>△</td></tr>
+                <tr><td>基盤性（他施策の前提）</td><td>◎</td><td>○</td><td>—</td></tr>
+                <tr><td>リスク低減</td><td>○</td><td>◎</td><td>△</td></tr>
+                <tr><td>コスト対効果</td><td>◎</td><td>◎</td><td>○</td></tr>
+            </tbody>
+        </table>
+
+        <h3>5.4 リスクと対策</h3>
+        <table class="table report-table">
+            <thead>
+                <tr>
+                    <th>リスク</th>
+                    <th>影響</th>
+                    <th>対策</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>現場の操作習熟に時間がかかる</td><td>一時的に効率低下</td><td>並行運用期間（2週間）を設定。Excel運用も残す</td></tr>
+                <tr><td>既存Excelデータの移行漏れ</td><td>過去データが検索できない</td><td>移行ツールを作成し、段階的にインポート</td></tr>
+                <tr><td>想定外の帳票パターンがある</td><td>追加開発が必要</td><td>Phase 2開始前に帳票パターンの棚卸しを実施</td></tr>
+                <tr><td>JodyCraftに依存しないか</td><td>将来の保守が心配</td><td>コードをシンプルに保ち、操作マニュアルを納品</td></tr>
+            </tbody>
+        </table>
+    </section>
+
+    <hr class="report-divider" />
+
+    <!-- Chapter 6 -->
+    <section class="report-section">
+        <h2>6. 概算コスト・効果試算</h2>
+
+        <h3>6.1 投資対効果サマリ</h3>
+        <table class="table report-table">
+            <thead>
+                <tr>
+                    <th>項目</th>
+                    <th>金額</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>初期投資（Phase 1-2）</td><td>¥50〜80万（税別）</td></tr>
+                <tr><td>年間の工数削減効果</td><td>¥151〜188万相当</td></tr>
+                <tr><td>投資回収期間</td><td>約4〜6ヶ月</td></tr>
+            </tbody>
+        </table>
+
+        <h3>6.2 施策別の概算コスト</h3>
+        <table class="table report-table">
+            <thead>
+                <tr>
+                    <th>施策</th>
+                    <th>概算費用（税別）</th>
+                    <th>JodyCraft稼働時間</th>
+                    <th>概算工期</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>Phase 1: データ入力アプリ</td><td>¥30〜50万</td><td>15〜25時間</td><td>4〜6週間</td></tr>
+                <tr><td>Phase 2: 検査成績書自動生成</td><td>¥20〜30万</td><td>10〜15時間</td><td>3〜4週間</td></tr>
+                <tr><td>Phase 3: ダッシュボード</td><td>¥15〜20万</td><td>要相談</td><td>2〜3週間</td></tr>
+            </tbody>
+        </table>
+
+        <div class="report-callout">
+            <p>※ JodyCraftはAIとの協業（AI Partnership）により、従来のシステム開発会社と比較して短い稼働時間で同等の成果を提供します。正式な見積もりは実装フェーズの要件確認後に提示いたします。</p>
+        </div>
+
+        <h3>6.3 年間削減効果（定量）</h3>
+        <table class="table report-table">
+            <thead>
+                <tr>
+                    <th>効果項目</th>
+                    <th>改善前（年間）</th>
+                    <th>改善後（年間）</th>
+                    <th>削減額（年間）</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>データ入力工数</td><td>480時間（¥120万）</td><td>144〜240時間（¥36〜60万）</td><td>¥60〜84万</td></tr>
+                <tr><td>成績書作成工数</td><td>240時間（¥60万）</td><td>24〜48時間（¥6〜12万）</td><td>¥48〜54万</td></tr>
+                <tr><td>データ検索工数</td><td>96時間（¥24万）</td><td>5時間未満（¥1.3万）</td><td>約¥23万</td></tr>
+                <tr><td>転記ミス対応</td><td>48時間（¥12万）</td><td>ほぼ0時間</td><td>約¥12万</td></tr>
+                <tr><td>VBAトラブル対応</td><td>36時間（¥9万）</td><td>0時間（VBA廃止）</td><td>約¥9万</td></tr>
+                <tr class="report-table-highlight"><td><strong>合計</strong></td><td><strong>900時間（¥225万）</strong></td><td><strong>173〜293時間</strong></td><td><strong>¥151〜188万/年</strong></td></tr>
+            </tbody>
+        </table>
+
+        <h3>6.4 定性効果（金額換算が困難だが重要な効果）</h3>
+        <ul>
+            <li><strong>属人化の解消</strong>: VBA保守者1名への依存がなくなり、品質管理部全員がシステムを利用可能</li>
+            <li><strong>トレーサビリティ対応力の向上</strong>: 顧客監査時にデータベースから即座に履歴を提示できる</li>
+            <li><strong>品質改善の基盤</strong>: データが構造化されることで、将来の傾向分析・統計的品質管理（SQC）が可能になる</li>
+            <li><strong>ペーパーレス化</strong>: 印刷・押印・スキャンの一連の紙作業が不要になる</li>
+        </ul>
+
+        <h3>6.5 ROI計算</h3>
+        <pre class="report-flow-diagram">初期投資（Phase 1-2中央値）: 約¥65万
+年間削減効果（中央値）:       約¥170万
+
+ROI = (170 - 65) ÷ 65 × 100 = 約162%（1年目）
+投資回収期間 = 65 ÷ (170 ÷ 12) ≒ 約4.6ヶ月</pre>
+        <p class="report-note">※ 上記は概算値です。実際の効果は業務の詳細条件により変動します。</p>
+
+        <h3>6.6 次のステップ</h3>
+        <p>本診断レポートの内容について、ご不明点やご要望がございましたらお気軽にお問い合わせください。</p>
+        <p>改善の実施をご検討いただける場合、以下の進め方が可能です:</p>
+        <ol>
+            <li>
+                <strong>実装パッケージ</strong>（Phase単位で契約）
+                <ul>
+                    <li>Phase 1: ¥30〜50万 / 4〜6週間</li>
+                    <li>各Phaseの完了後に効果を確認してから次のPhaseへ進むか判断</li>
+                </ul>
+            </li>
+            <li>
+                <strong>月額アドバイザー契約</strong>（¥10〜20万/月）
+                <ul>
+                    <li>改善の計画策定・技術選定・進捗管理を継続的にサポート</li>
+                    <li>社内エンジニアがいる場合、技術移転（コードレビュー等）も対応</li>
+                </ul>
+            </li>
+        </ol>
+    </section>
+
+    <hr class="report-divider" />
+
+    <!-- Appendix -->
+    <section class="report-section">
+        <h2>付録</h2>
+
+        <h3>A. 用語集</h3>
+        <table class="table report-table">
+            <thead>
+                <tr>
+                    <th>用語</th>
+                    <th>説明</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>SQLite</td><td>サーバ不要で動作するファイルベースのデータベース。1つのファイルにデータを格納する</td></tr>
+                <tr><td>WinForms</td><td>Microsoftの.NETフレームワークに含まれる、Windowsデスクトップアプリ開発技術</td></tr>
+                <tr><td>C#</td><td>Microsoftが開発したプログラミング言語。Windowsアプリ開発で広く使われている</td></tr>
+                <tr><td>Dapper</td><td>C#でデータベース操作を簡潔に記述できるライブラリ（軽量ORM）</td></tr>
+                <tr><td>ClosedXML</td><td>C#からExcelファイルを読み書きできるライブラリ。Microsoft Excelがインストールされていなくても動作する</td></tr>
+                <tr><td>PDFSharp</td><td>C#からPDFファイルを作成・編集できるライブラリ</td></tr>
+                <tr><td>バリデーション</td><td>入力されたデータが正しい形式・範囲であるかを自動でチェックする機能</td></tr>
+                <tr><td>トレーサビリティ</td><td>製品の製造履歴・検査結果を追跡できる仕組み。自動車業界では顧客要求として求められることが多い</td></tr>
+                <tr><td>VBA</td><td>Visual Basic for Applications。ExcelやWordに組み込まれたプログラミング言語</td></tr>
+                <tr><td>SQC</td><td>Statistical Quality Control（統計的品質管理）。データに基づく品質管理手法</td></tr>
+                <tr><td>MITライセンス</td><td>ソフトウェアの利用許諾形態の一つ。商用利用を含め、自由に利用・改変が可能</td></tr>
+            </tbody>
+        </table>
+
+        <h3>B. 参考技術情報</h3>
+        <table class="table report-table">
+            <thead>
+                <tr>
+                    <th>技術</th>
+                    <th>公式サイト</th>
+                    <th>ライセンス</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>.NET 8</td><td>https://dotnet.microsoft.com</td><td>MIT</td></tr>
+                <tr><td>ClosedXML</td><td>https://github.com/ClosedXML/ClosedXML</td><td>MIT</td></tr>
+                <tr><td>PDFSharp</td><td>https://www.pdfsharp.net</td><td>MIT</td></tr>
+                <tr><td>Dapper</td><td>https://github.com/DapperLib/Dapper</td><td>Apache 2.0</td></tr>
+                <tr><td>SQLite</td><td>https://www.sqlite.org</td><td>Public Domain</td></tr>
+            </tbody>
+        </table>
+    </section>
+
+    <!-- Footer -->
+    <div class="report-footer">
+        <p><em>本レポートは中部精密工業株式会社様への業務改善診断の結果をまとめたものです。</em></p>
+        <p><em>内容に関するご質問・ご要望は JodyCraft までお気軽にお問い合わせください。</em></p>
+        <p class="report-footer-brand"><strong>JodyCraft</strong> — 製造業の現場を知るC#×AI業務改善の専門家</p>
+        <p class="report-footer-meta">文書番号: JC-DIA-2026-003 / 2026年3月 / 社外秘</p>
+    </div>
+
+    <!-- CTA -->
+    <div class="report-cta">
+        <h3>このような診断レポートをお届けします</h3>
+        <p>貴社の業務課題を分析し、具体的な改善提案をまとめた診断レポートを作成します。</p>
+        <a href="contact" class="btn btn-accent btn-lg">無料相談に申し込む →</a>
+    </div>
+</div>
